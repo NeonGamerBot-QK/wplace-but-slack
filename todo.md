@@ -1,1 +1,4 @@
 - test (test fr) making ur server handle the tile maps and then using nodejs to write emojis over it or js.. ignore it :0
+- implement better tile cache
+- implement gif support 
+- implement emoji picker. (overlay ontop of map prob)

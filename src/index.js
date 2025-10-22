@@ -23,7 +23,7 @@ io.on("connection", (socket) => {
       socket.emit("emojis-list", cache.get("emojis-list"));
       return;
     }
-    const emojis = await sclient.emoji.list();
+    const emojis = await sclient.emoji.list().then(d => d.emoji);
     cache.set("emojis-list", emojis);
     setInterval(() => cache.delete("emojis-list"), 5 * 60 * 1000); // Cache for 5 minutes
   });
@@ -34,6 +34,11 @@ io.on("connection", (socket) => {
     console.log("Client disconnected");
   });
 });
+app.post('/change-tile/:z/:x/:y', express.json(), (req, res) => {
+  const { z, x, y } = req.params;
+  const { imageData } = req.body; // Expecting base64 encoded image data
+})
+
 app.get("/proxy/:z/:x/:y.png", async (req, res) => {
   const { z, x, y } = req.params;
   // res.set("Content-Type", "application/x-protobuf");
@@ -41,7 +46,7 @@ app.get("/proxy/:z/:x/:y.png", async (req, res) => {
   const response = await fetch(url);
   const buffer = await response.arrayBuffer();
   if (z >= 15) {
-    console.log(z);
+    // console.log(z);
     const cache = getCacheFile(z, x, y);
     if (cache) {
       console.log("cache hit");
@@ -52,6 +57,7 @@ app.get("/proxy/:z/:x/:y.png", async (req, res) => {
     const canvas = createCanvas(tile.width, tile.height);
     const ctx = canvas.getContext("2d");
     ctx.drawImage(tile, 0, 0);
+
     if (process.env.DEBUG_LINES) {
       // draw a border around the img
       ctx.strokeStyle = "red";
