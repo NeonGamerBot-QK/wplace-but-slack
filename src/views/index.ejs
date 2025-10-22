@@ -53,9 +53,9 @@
             const { lat, long, name, addr } = item;
             L.marker([lat, long]).addTo(map)
                 .bindPopup(`<b>Location marker</b>`)
-            // .bindPopup(\`<b>\${name}</b><br/>\${addr.replace(/\\n/g, "<br/>")}<br/>Battery: \${item.battery}%<br/>Weather: \${item.weather}\`);
         });
     </script>
 </body>
+
 
 </html>
