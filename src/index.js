@@ -23,7 +23,7 @@ io.on("connection", (socket) => {
       socket.emit("emojis-list", cache.get("emojis-list"));
       return;
     }
-    const emojis = await sclient.emoji.list().then(d => d.emoji);
+    const emojis = await sclient.emoji.list().then((d) => d.emoji);
     cache.set("emojis-list", emojis);
     setInterval(() => cache.delete("emojis-list"), 5 * 60 * 1000); // Cache for 5 minutes
   });
@@ -34,10 +34,10 @@ io.on("connection", (socket) => {
     console.log("Client disconnected");
   });
 });
-app.post('/change-tile/:z/:x/:y', express.json(), (req, res) => {
+app.post("/change-tile/:z/:x/:y", express.json(), (req, res) => {
   const { z, x, y } = req.params;
   const { imageData } = req.body; // Expecting base64 encoded image data
-})
+});
 
 app.get("/proxy/:z/:x/:y.png", async (req, res) => {
   const { z, x, y } = req.params;
