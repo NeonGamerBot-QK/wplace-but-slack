@@ -1,14 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Splace</title>
+    <title>Leaflet Map</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+    </style>
 </head>
 
 <body>
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        const data = [{ lat: 0, long: 0 }];
+        const socket = io()
+        socket.on('emojis-list', console.log)
+        socket.emit('get-emojis-list')
 
+        const map = L.map('map').setView([data[0].lat, data[0].long], 13);
+
+        L.tileLayer(
+            //`https://cataas.com/cat?e={x}&b={y}&nfeirjnfeijy={z}`
+            `http://localhost:3000/proxy/{z}/{x}/{y}.png`
+            , {
+                maxZoom: 19,
+                attribution: '© OpenStreetMap',
+                errorTileUrl: 'https://saahild.com/oneko.gif'
+            }).addTo(map);
+
+        map.on("click", function (e) {
+            const zoom = map.getZoom();
+            const lat = e.latlng.lat;
+            const lon = e.latlng.lng;
+
+            // Convert lat/lon to tile numbers
+            const xTile = Math.floor((lon + 180) / 360 * Math.pow(2, zoom));
+            const yTile = Math.floor(
+                (1 - Math.log(Math.tan(lat * Math.PI / 180) + 1 / Math.cos(lat * Math.PI / 180)) / Math.PI) / 2 * Math.pow(2, zoom)
+            );
+
+            console.log(`Clicked tile: z=${zoom}, x=${xTile}, y=${yTile}`);
+        });
+        data.forEach(item => {
+            const { lat, long, name, addr } = item;
+            L.marker([lat, long]).addTo(map)
+                .bindPopup(`<b>Location marker</b>`)
+            // .bindPopup(\`<b>\${name}</b><br/>\${addr.replace(/\\n/g, "<br/>")}<br/>Battery: \${item.battery}%<br/>Weather: \${item.weather}\`);
+        });
+    </script>
 </body>
 
 </html>
