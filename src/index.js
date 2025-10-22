@@ -58,8 +58,8 @@ app.post("/change-tile/:z/:x/:y", express.json(), async (req, res) => {
     properTile.width - emojiSize - 5,
     properTile.height - emojiSize - 5,
     emojiSize,
-    emojiSize
-  )
+    emojiSize,
+  );
 });
 
 app.get("/proxy/:z/:x/:y.png", async (req, res) => {
@@ -114,7 +114,6 @@ app.get("/proxy/:z/:x/:y.png", async (req, res) => {
     res.send(Buffer.from(buffer));
   }
 });
-
 
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
