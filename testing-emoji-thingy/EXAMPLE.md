@@ -11,7 +11,7 @@ cover: "/images/clubs_vuln.png"
 ## Hackclub Security program :meowmeowmeowsib:
 
 The hackclub security program was made by :mrrp: [3kh0](https://3kh0.net) and was made so teens could get money for security vulns they find!. many payouts have been issued from there,:0538u54038u50437:
- :75934739743: ranging to leaked creds which leaked 100+ people's pii and airtable sql injection. The security has had its fair share of programs suffering but the programs which suffer the most are usually shiba and the hackclub clubs stuff.
+:75934739743: ranging to leaked creds which leaked 100+ people's pii and airtable sql injection. The security has had its fair share of programs suffering but the programs which suffer the most are usually shiba and the hackclub clubs stuff.
 
 ## What actually happened now? what do you mean by "Hey where did all the slack channels go?"
 
