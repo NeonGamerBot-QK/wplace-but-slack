@@ -6,15 +6,16 @@ tags: ["markdown", "hackclub", "security", "slack", "clubs"]
 cover: "/images/clubs_vuln.png"
 ---
 
-Before we jump into my story lets add some context:
+:pf: Before we jump into my story lets add some context: :804y53897o7heavysob:
 
-## Hackclub Security program
+## Hackclub Security program :meowmeowmeowsib:
 
-The hackclub security program was made by [3kh0](https://3kh0.net) and was made so teens could get money for security vulns they find!. many payouts have been issued from there, ranging to leaked creds which leaked 100+ people's pii and airtable sql injection. The security has had its fair share of programs suffering but the programs which suffer the most are usually shiba and the hackclub clubs stuff.
+The hackclub security program was made by :mrrp: [3kh0](https://3kh0.net) and was made so teens could get money for security vulns they find!. many payouts have been issued from there,:0538u54038u50437:
+ :75934739743: ranging to leaked creds which leaked 100+ people's pii and airtable sql injection. The security has had its fair share of programs suffering but the programs which suffer the most are usually shiba and the hackclub clubs stuff.
 
 ## What actually happened now? what do you mean by "Hey where did all the slack channels go?"
 
-Well... i was looking through the [hackclubs club dashboard source code](https://github.com/hackclub/club-dashboard), and in the very long ai generated main.py which was coded by the main club led eng, i was ctrl + f'ing thru the code looking at the api endpoints, and i find this url which is being used to invite members to the slack as multi channel guests, at first it looks normal but then i check there is absolutly no authentication headers on this code which is extremly concerning since this gives a way into the hackclub slack with no logging what so ever making it easy for the slack to be raided, so i find the code on the lead club eng's github (for some reason not on the hackclub org), in the screenshot below you can see the code contains a clone of my own code for [explorpheus](https://github.com/hackclub/explorpheus) but this one seems to be code writeen in python for a simple server which allows inviting people into the slack with no auth, but i look in another folder (named attached_assets) and i see some concerning things.. **Log files**.
+Well... i was :nuernuernjoer: looking through the [hackclubs club dashboard source code](https://github.com/hackclub/club-dashboard), and in the very long ai generated main.py which was coded by the main club led eng, i was ctrl + f'ing thru the code looking at the api endpoints, and i find this url which is being used to invite members to the slack as multi channel guests, at first it looks normal but then i check there is absolutly no authentication headers on this code which is extremly concerning since this gives a way into the hackclub slack with no logging what so ever making it easy for the slack to be raided, so i find the code on the lead club eng's github (for some reason not on the hackclub org), in the screenshot below you can see the code contains a clone of my own code for [explorpheus](https://github.com/hackclub/explorpheus) but this one seems to be code writeen in python for a simple server which allows inviting people into the slack with no auth, but i look in another folder (named attached_assets) and i see some concerning things.. **Log files**.
 ![ss of code structure](./ss_of_stuff.png)
 
 ## The log files

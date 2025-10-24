@@ -10,21 +10,89 @@
             height: 100vh;
             width: 100%;
         }
+
+        #emojipicker {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            width: 200px;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .emoji {
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .emoji:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+        }
     </style>
 </head>
 
 <body>
+    <div id="emojipicker"></div>
     <div id="emojipicker">
 
     </div>
     <div id="map"></div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
-        const data = [{ lat: 0, long: 0 }];
-        const socket = io()
-        socket.on('emojis-list', console.log)
-        socket.emit('get-emojis-list')
+        function isSpammyEmojiName(name) {
+            const n = name.trim().toLowerCase();
 
+            if (n.length < 1) return true;
+
+            if (n.length > 30) return true;
+
+            if (/[0-9a-f]{6,8}$/i.test(n)) return true; // #ff0033 or ffffff
+            if (/0x[0-9a-f]+$/i.test(n)) return true; // 0xffaabb
+
+            if (/^[0-9\W_]+$/.test(n)) return true;
+
+            const vowels = (n.match(/[aeiou]/g) || []).length;
+
+            if (/[0-9a-f]{8,}/i.test(n)) return true;
+
+            if (/(.)\1{4,}/.test(n)) return true;
+
+            return false;
+        }
+        const socket = io()
+        socket.on('emojis-list', emojis0 => {
+            for (const e in emojis0) {
+                if (isSpammyEmojiName(e)) continue;
+                emojis.push(emojis0[e])
+            }
+            console.log(`Loaded ${emojis.length}/${Object.keys(emojis0).length} emojis`);
+            emojis.slice(0, 100).forEach(src => {
+                const img = document.createElement('img');
+                img.src = src;
+                // lazy load
+                img.loading = 'lazy';
+                img.className = 'emoji';
+                img.onclick = () => selectEmoji(src);
+                picker.appendChild(img);
+
+            })
+        })
+        socket.emit('get-emojis-list')
+        const data = [{
+            lat: 51.505,
+            long: -0.09
+        }]
         const map = L.map('map').setView([data[0].lat, data[0].long], 13);
 
         L.tileLayer(
@@ -41,7 +109,6 @@
             const lat = e.latlng.lat;
             const lon = e.latlng.lng;
 
-            // Convert lat/lon to tile numbers
             const xTile = Math.floor((lon + 180) / 360 * Math.pow(2, zoom));
             const yTile = Math.floor(
                 (1 - Math.log(Math.tan(lat * Math.PI / 180) + 1 / Math.cos(lat * Math.PI / 180)) / Math.PI) / 2 * Math.pow(2, zoom)
@@ -49,10 +116,25 @@
 
             console.log(`Clicked tile: z=${zoom}, x=${xTile}, y=${yTile}`);
         });
-        data.forEach(item => {
-            const { lat, long, name, addr } = item;
-            L.marker([lat, long]).addTo(map)
-                .bindPopup(`<b>Location marker</b>`)
+        const picker = document.getElementById('emojipicker');
+
+        const emojis = [];
+
+        let selectedEmoji = null;
+        function selectEmoji(src) {
+            selectedEmoji = src;
+            console.log("Selected emoji:", src);
+        }
+        map.on("click", function (e) {
+            if (!selectedEmoji) return;
+
+            const icon = L.divIcon({
+                html: `<img src="${selectedEmoji}" style="width:32px;height:32px;">`,
+                className: 'emoji-marker',
+                iconSize: [32, 32]
+            });
+
+            L.marker([e.latlng.lat, e.latlng.lng], { icon }).addTo(map);
         });
     </script>
 </body>
