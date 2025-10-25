@@ -2,3 +2,7 @@
 - implement better tile cache
 - implement gif support
 - implement emoji picker. (overlay ontop of map prob)
+- organize css, js into scripts
+- readme
+- prod
+- ok bye
