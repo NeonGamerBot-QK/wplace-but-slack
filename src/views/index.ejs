@@ -155,7 +155,7 @@
 
         const map = L.map('map').setView([51.505, -0.09], 13);
 
-        L.tileLayer(`/proxy/{z}/{x}/{y}.png`, {
+        const tileLayer = L.tileLayer(`/proxy/{z}/{x}/{y}.png`, {
             maxZoom: 19,
             attribution: '© OpenStreetMap',
             errorTileUrl: 'https://saahild.com/oneko.gif'
@@ -166,7 +166,15 @@
             selectedEmoji = src;
             console.log("Selected emoji:", src);
         }
-
+        function latLngToTile(lat, lng, zoom) {
+            const tileX = Math.floor(((lng + 180) / 360) * Math.pow(2, zoom));
+            const tileY = Math.floor(
+                (1 -
+                    Math.log(Math.tan(lat * Math.PI / 180) + 1 / Math.cos(lat * Math.PI / 180)) /
+                    Math.PI) / 2 * Math.pow(2, zoom)
+            );
+            return { x: tileX, y: tileY };
+        }
         map.on("click", function (e) {
             if (!selectedEmoji) return;
             const icon = L.divIcon({
@@ -174,9 +182,28 @@
                 className: 'emoji-marker',
                 iconSize: [32, 32]
             });
-            L.marker([e.latlng.lat, e.latlng.lng], { icon }).addTo(map);
-        });
 
+            const zoom = map.getZoom();
+            const { x, y } = latLngToTile(e.latlng.lat, e.latlng.lng, zoom);
+            L.marker([e.latlng.lat, e.latlng.lng], { icon }).addTo(map);
+            // fetch to api to update tile /change-tile/:z/:x/yz?emoji=
+            fetch(`/change-tile/${zoom}/${x}/${y}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ emoji: selectedEmoji })
+            }).then(d => {
+                if (d.ok) {
+
+                    // Force re-fetch this tile
+                    const url = tileLayer.getTileUrl({ x, y, z: zoom });
+                    const img = new Image();
+                    img.onload = () => console.log("Tile refreshed:", url);
+                    img.src = url + `?t=${Date.now()}`; // add timestamp to bust cache
+                }
+            });
+        });
     </script>
     <script>
         const leafImages = [

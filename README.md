@@ -32,13 +32,13 @@
 <br />
 <div align="center">
   <a href="https://github.com/NeonGamerBot-QK/wplace-but-slack">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <!-- <img src="images/logo.png" alt="Logo" width="80" height="80"> -->
   </a>
 
-<h3 align="center">project_title</h3>
+<h3 align="center">Wplace but w/ slac emojis (fall theme asw)</h3>
 
   <p align="center">
-    project_description
+    Wplace but i wanted slack emojis cuz why not!
     <br />
     <a href="https://github.com/NeonGamerBot-QK/wplace-but-slack"><strong>Explore the docs »</strong></a>
     <br />
@@ -81,24 +81,17 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-{desc}
-
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `NeonGamerBot-QK`, `wplace-but-slack`, `twitter_handle`, `linkedin_username`, `project_title`, `project_description`
+[![Product Name Screen Shot][product-screenshot]](https://wplace-slackemojis.saahild.com)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
 
-- [![Next][Next.js]][Next-url]
-- [![React][React.js]][React-url]
-- [![Vue][Vue.js]][Vue-url]
-- [![Angular][Angular.io]][Angular-url]
-- [![Svelte][Svelte.dev]][Svelte-url]
-- [![Laravel][Laravel.com]][Laravel-url]
-- [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-- [![JQuery][JQuery.com]][JQuery-url]
+- node v22
+- express js
+- ejs 
+- leaflet
+- openstreetmaps
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -106,22 +99,16 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
 ### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
 
 - npm
   ```sh
-  npm install npm@latest -g
+  pnpm install 
   ```
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
    git clone https://github.com/NeonGamerBot-QK/wplace-but-slack.git
    ```
@@ -129,10 +116,8 @@ This is an example of how to list things you need to use the software and how to
    ```sh
    npm install
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = "ENTER YOUR API";
-   ```
+4. populate the .env
+
 5. Change git remote url to avoid accidental pushes to base project
    ```sh
    git remote set-url origin NeonGamerBot-QK/wplace-but-slack
@@ -140,30 +125,6 @@ This is an example of how to list things you need to use the software and how to
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- USAGE EXAMPLES -->
-
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- ROADMAP -->
-
-## Roadmap
-
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-  - [ ] Nested Feature
-
-See the [open issues](https://github.com/NeonGamerBot-QK/wplace-but-slack/issues) for a full list of proposed features (and known issues).
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 <!-- CONTRIBUTING -->
 
 ## Contributing
@@ -209,9 +170,7 @@ Project Link: [https://github.com/NeonGamerBot-QK/wplace-but-slack](https://gith
 
 ## Acknowledgments
 
-- []()
-- []()
-- []()
+- siege
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -230,7 +189,7 @@ Project Link: [https://github.com/NeonGamerBot-QK/wplace-but-slack](https://gith
 [license-url]: https://github.com/NeonGamerBot-QK/wplace-but-slack/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: ./screenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB

@@ -37,8 +37,9 @@ io.on("connection", (socket) => {
 app.post("/change-tile/:z/:x/:y", express.json(), async (req, res) => {
   const { z, x, y } = req.params;
   const { emoji } = req.body;
-  const emojiLink = cache.get("emojis-list")[emoji];
-  if (!emojiLink) {
+  console.log(emoji)
+  const emojiLink = emoji || cache.get("emojis-list")[emoji];
+  if (!emoji) {
     res.status(400).send("Invalid emoji");
     return;
   }
@@ -60,9 +61,14 @@ app.post("/change-tile/:z/:x/:y", express.json(), async (req, res) => {
     emojiSize,
     emojiSize,
   );
+  const buffer = canvas.toBuffer("image/png");
+  setCacheFile(z, x, y, buffer);
+  res.send("Tile updated");
 });
 
 app.get("/proxy/:z/:x/:y.png", async (req, res) => {
+  // disable cache
+  res.set("Cache-Control", "no-store");
   const { z, x, y } = req.params;
   // res.set("Content-Type", "application/x-protobuf");
   const url = `https://tile.openstreetmap.org/${z}/${x}/${y}.png`;
