@@ -37,7 +37,7 @@ io.on("connection", (socket) => {
 app.post("/change-tile/:z/:x/:y", express.json(), async (req, res) => {
   const { z, x, y } = req.params;
   const { emoji } = req.body;
-  console.log(emoji)
+  console.log(emoji);
   const emojiLink = emoji || cache.get("emojis-list")[emoji];
   if (!emoji) {
     res.status(400).send("Invalid emoji");
