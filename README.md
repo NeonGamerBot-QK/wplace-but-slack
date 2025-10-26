@@ -89,7 +89,7 @@
 
 - node v22
 - express js
-- ejs 
+- ejs
 - leaflet
 - openstreetmaps
 
@@ -103,7 +103,7 @@
 
 - npm
   ```sh
-  pnpm install 
+  pnpm install
   ```
 
 ### Installation
@@ -112,13 +112,13 @@
    ```sh
    git clone https://github.com/NeonGamerBot-QK/wplace-but-slack.git
    ```
-3. Install NPM packages
+2. Install NPM packages
    ```sh
    npm install
    ```
-4. populate the .env
+3. populate the .env
 
-5. Change git remote url to avoid accidental pushes to base project
+4. Change git remote url to avoid accidental pushes to base project
    ```sh
    git remote set-url origin NeonGamerBot-QK/wplace-but-slack
    git remote -v # confirm the changes
